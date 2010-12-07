@@ -18,7 +18,7 @@
     define('_DB_NAME', 'develop_platform');
     define('_DB_HOST', 'localhost');
     define('_DB_USER', 'root');
-    define('_DB_PASS', 'qwe123');
+    define('_DB_PASS', 'your_password');
     
     // 分頁
     define('_SPLITPAGE_TOTAL_RECORDS', 10); //資料總數
