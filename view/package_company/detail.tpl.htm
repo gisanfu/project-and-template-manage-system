@@ -1,0 +1,29 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['row'] = array();
+  $this->_tpl_vars['row'] = $this->_tpl_vars['packagecompany'];
+<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  程序資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">公司名稱</td>
+      <td>
+        <input name="name" type="text" size="60" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">首頁</td>
+      <td><input name="homepage" type="text" size="60" value="<{$row.homepage}>"/></td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="project_id" type="hidden" value="<{$project_id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

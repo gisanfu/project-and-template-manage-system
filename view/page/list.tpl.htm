@@ -1,0 +1,82 @@
+<{* 方便使用者去上層或下層 *}>
+所在位置:
+/<a href="dase-project.php?hidop=funclist&id=<{$project_id}>"><{$cg_name}></a>/Page區塊管理<br><br>
+
+<a href="<{$targetpost}>?hidop=adding&project_id=<{$project_id}>" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增Page區塊
+</a>
+
+<br>
+
+<a href="<{$targetpost}>?hidop=exportpages&project_id=<{$project_id}>" style="text-decoration:none;color:#0052D9;">
+  [export]
+  匯出所有Page區塊
+</a>
+
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['rows'] = array();
+  $this->_tpl_vars['rows'] = $this->_tpl_vars['pages'];
+<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">Page區塊資料夾名稱</td>
+    <td class="hed">描述</td>
+    <td class="hed">匯出本區塊</td>
+    <td class="hed">是否啟用</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].name|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].description|default:"&nbsp;"}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=exportpage&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            匯出
+          </a>
+        </div>
+      </td>
+      <td>
+        <{if $rows[num01].enable == '1'}>
+          啟用
+        <{else}>
+          停用
+        <{/if}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>
+
+<{include file='normal/framework_description.tpl.htm'}>

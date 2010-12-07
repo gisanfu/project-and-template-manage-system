@@ -1,0 +1,16 @@
+<?php
+$sql_schemas=array();
+$sql_schemas["capacitys"]=array("id"=>"int","name"=>"string");
+$sql_schemas["categories"]=array("id"=>"int","name"=>"string","image"=>"string","parent_id"=>"int","sort_order"=>"int");
+$sql_schemas["companys"]=array("id"=>"int","group_id"=>"int","name"=>"string","phone"=>"string","addr"=>"string");
+$sql_schemas["companys_group"]=array("id"=>"int","name"=>"string","phone"=>"string","addr"=>"string");
+$sql_schemas["craft"]=array("id"=>"int","name"=>"string");
+$sql_schemas["manufacturers"]=array("id"=>"int","name"=>"string","phone"=>"string","addr"=>"string");
+$sql_schemas["manufacturers_craft"]=array("id"=>"int","manufacturers_id"=>"int","craft_id"=>"int");
+$sql_schemas["price_dynamic"]=array("id"=>"int","price"=>"int","date_added"=>"timestamp","products_id"=>"int","companys_group_id"=>"int","startdate"=>"datetime","enddate"=>"datetime","area"=>"string");
+$sql_schemas["price_static"]=array("id"=>"int","price"=>"int","date_added"=>"timestamp","products_id"=>"int","companys_group_id"=>"int");
+$sql_schemas["products"]=array("id"=>"int","name"=>"string","description"=>"blob","url"=>"string","image"=>"string","quantity_group_unit"=>"string","quantity_value"=>"string","quantity_unit"=>"string","weight_value"=>"string","weights_id"=>"int","capacity_value"=>"string","capacitys_id"=>"int","manufacturers_id"=>"int","categories_id"=>"int");
+$sql_schemas["quantity"]=array("id"=>"int","name"=>"string");
+$sql_schemas["t_manufacturers_categories"]=array("id"=>"int","manufacturers_id"=>"int","categories_id"=>"int");
+$sql_schemas["weights"]=array("id"=>"int","name"=>"string");
+?>

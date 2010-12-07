@@ -1,0 +1,40 @@
+<{config_load file="vars.conf"}>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>後台管理</title>
+
+<{* 把通用的javascript函式帶進來 *}>
+<script type="text/javascript" src="includes/myjs/divcontrol.js"></script>
+
+</head>
+
+<body>
+
+<{* 這裡是DEBUG區段 *}>
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{if #debug# == 1 }>
+  <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['debuglines'];<{/php}>
+  <a href="#" style="text-decoration:none" onclick="DivViewControl('debug_div01')" title="Debug訊息">
+    <img src="images/debugt_obj_16x16.gif" border="0" />
+  </a>
+  <div id="debug_div01" style="display:none">
+    <font color="#FF0000">
+    <{section name=nums loop=$rows}>
+      <{$rows[nums]}><br />
+    <{/section}>
+    </font>
+    <div id="debugdiv"></div>
+  </div>
+<{/if}>
+
+<{* 這裡放置你的Body內容 *}>
+
+</body>
+</html>
+
+<{*
+  <{include file=block01/view.head.htm}>
+  <{include file=block01/view.tpl.htm}>
+*}>

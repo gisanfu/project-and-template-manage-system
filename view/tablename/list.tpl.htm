@@ -1,0 +1,64 @@
+<{* 方便使用者去上層或下層 *}>
+所在位置:
+/<a href="dase-project.php?hidop=funclist&id=<{$project_id}>"><{$cg_name}></a>/資料表別名管理<br><br>
+
+<a href="<{$targetpost}>?hidop=adding&project_id=<{$project_id}>" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增資料表別名
+</a>
+
+<br>
+
+<a href="<{$targetpost}>?hidop=exportfile&project_id=<{$project_id}>" style="text-decoration:none;color:#0052D9;">
+  [export]
+  匯出資料表別名對應檔(config/sql_tablealias.php)<font color="red">*會覆蓋</font>
+</a>
+
+<br>
+這裡的目的，就是未來要更改資料表名稱的時候<br>
+只要修改這裡就可以了，不用所有的程序都修改
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['tablenames'];<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">資料表別名</td>
+    <td class="hed">實際名稱</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].alias|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].name|default:"&nbsp;"}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

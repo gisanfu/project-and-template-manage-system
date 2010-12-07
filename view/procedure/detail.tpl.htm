@@ -1,0 +1,92 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['row'] = array();
+  $this->_tpl_vars['row'] = $this->_tpl_vars['procedure'];
+<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  程序資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">程序名稱</td>
+      <td>
+        <font color="red">*建議使用以"sp_"開頭的名稱</font><br>
+        <input name="name" type="text" size="60" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">描述</td>
+      <td><input name="description" type="text" size="60" value="<{$row.description}>"/></td>
+    </tr>
+    <tr>
+      <td class="hed">是否啟用</td>
+      <td>
+        <input type="radio" name="enable" VALUE="1" 
+          <{* 預設的radio是選擇啟用 *}>
+          <{if $row.enable > 0 }>
+            checked
+          <{/if}>
+        />啟用<br>
+        <input type="radio" name="enable" VALUE="0" 
+          <{* 只要欄位有特價區域，修改的時候就會出現 *}>
+          <{if $row.enable <= 0 or $row.enable == '' }>
+            checked
+          <{/if}>        
+        />停用<br>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">程序內容</td>
+      <td>
+        <font color="red">*只要BEGIN~END(含)區塊內的東西就可以了</font><br>
+        
+        <{* 插入保留字 *}>
+        <select id="static_id" onchange="js_insert_text('beginbody',this.options[this.selectedIndex].value);this.selectedIndex=0">
+          <option value="">插入保留字</option>
+          <option value="%_PROC_VER_%">程序的版本</option>
+        </select>
+        
+        <{* 插入資料表別名 *}>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>
+          $this->_tpl_vars['rows'] = array();
+          $this->_tpl_vars['rows'] = $this->_tpl_vars['tablenames'];
+        <{/php}>
+        <select id="tablename_id" onchange="js_insert_text('beginbody',this.options[this.selectedIndex].text);this.selectedIndex=0">
+          <option value="">插入資料表別名</option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].id}>">
+              %<{$rows[num01].alias}>%
+            </option>
+          <{/section}>
+        </select>
+        
+        <{* 插入欄位名稱 *}>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>
+          $this->_tpl_vars['rows'] = array();
+          $this->_tpl_vars['rows'] = $this->_tpl_vars['arguments'];
+        <{/php}>
+        <select id="argument_id" onchange="js_insert_text('beginbody',this.options[this.selectedIndex].value);this.selectedIndex=0">
+          <option value="">插入欄位名稱</option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].name}>">
+              <{$rows[num01].description}>
+            </option>
+          <{/section}>
+        </select>        
+
+        <br>
+        <textarea id="beginbody" name="beginbody" cols="40" rows="30" onkeydown="TraceCursorPosition(this)" onkeypress="TraceCursorPosition(this)" onfocus="TraceCursorPosition(this)" onselect="TraceCursorPosition(this)" onmouseover="TraceCursorPosition(this)" onmousedown="TraceCursorPosition(this)"><{$row.beginbody}></textarea>
+      </td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="project_id" type="hidden" value="<{$project_id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

@@ -1,0 +1,70 @@
+<{config_load file="vars.conf"}>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>程式輔助開發平台</title>
+
+<{* 把左邊工具列所需要的東西帶進來 *}>
+<{include file='normal/left.head.htm'}>
+
+<{* 把通用的javascript函式帶進來 *}>
+<script type="text/javascript" src="includes/myjs/divcontrol.js"></script>
+
+<{* 把其它所需要的函式帶進來 *}>
+<{if $smarty_head!=''}>
+  <{include file=$smarty_head}>
+<{/if}>
+
+</head>
+
+<body>
+
+<{* 這裡是DEBUG區段 *}>
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{if #debug# == 1 }>
+  <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['debuglines'];<{/php}>
+  <a href="#" style="text-decoration:none" onclick="DivViewControl('debug_div01')" title="Debug訊息">
+    [debug]
+  </a>
+  <div id="debug_div01" style="display:none">
+    <font color="#FF0000">
+    <{section name=nums loop=$rows}>
+      <{$rows[nums]}><br />
+    <{/section}>
+    </font>
+    <div id="debugdiv"></div>
+  </div>
+<{/if}>
+
+<table border="0" width="932" align="center">
+  <tr>
+    <td colspan="2">
+      <{* 這個是上面的工具列 *}>      
+      <{include file='normal/top.tpl.htm'}>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top" width="150">
+      <{* 這個是左邊的工具列 *}>
+      <{include file='normal/left.tpl.htm'}>
+    </td>
+    <td ALIGN=left VALIGN=top>
+      <{* 這個是右邊的主要內容區 *}>
+      <{if $smarty_content!=''}>
+        <{include file=$smarty_content}>
+      <{else}>
+        沒有可載入的樣版
+      <{/if}>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <{* 這個是下面的工具列 *}>
+      <{include file='normal/bottom.tpl.htm'}>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

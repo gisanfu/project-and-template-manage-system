@@ -1,0 +1,84 @@
+<{* 方便使用者去上層或下層 *}>
+所在位置:
+/<a href="dase-project.php?hidop=funclist&id=<{$project_id}>"><{$projectname}></a>/<a href="dase-proc.php?hidop=list&project_id=<{$project_id}>">程序管理</a>/<{$procedurename}>欄位列表<br><br>
+
+<a href="<{$targetpost}>?hidop=adding&project_id=<{$project_id}>&procedure_id=<{$procedure_id}>" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增欄位
+</a>
+
+<br>
+程序的引數
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['arguments'];<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">順序</td>
+    <td class="hed">欄位名稱</td>
+    <td class="hed">描述</td>
+    <td class="hed">型態</td>
+    <td class="hed">長度</td>
+    <td class="hed">required</td>
+    <td class="hed">是否啟用</td>    
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].sequence|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].name|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].description|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].type_name|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].length|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{if $rows[num01].required == '1'}>
+          必要
+        <{else}>
+          非必要
+        <{/if}>
+      </td>
+      <td>
+        <{if $rows[num01].enable == '1'}>
+          啟用
+        <{else}>
+          停用
+        <{/if}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>&procedure_id=<{$procedure_id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

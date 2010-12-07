@@ -1,0 +1,59 @@
+<a href="<{$targetpost}>?hidop=adding" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增套件所屬的公司
+</a>
+
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['rows'] = array();
+  $this->_tpl_vars['rows'] = $this->_tpl_vars['packagecompanys'];
+<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">公司名稱</td>
+    <td class="hed">首頁</td>
+    <td class="hed">所屬套件</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td><{$rows[num01].name|default:"&nbsp;"}></td>
+      <td>
+        <{$rows[num01].homepage|default:"&nbsp;"}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="dase-package.php?hidop=list&package_company_id=<{$rows[num01].id}>">
+            套件
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

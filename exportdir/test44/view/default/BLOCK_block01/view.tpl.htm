@@ -1,0 +1,43 @@
+<a href="<{$targetpost}>?hidop=adding" style="text-decoration:none;color:#0052D9;">
+  <img src="images/add.png" width="16" height="16" border="0" />
+  新增資料
+</a>
+
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['weights'];<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">單位名稱</td>
+    <td class="hed" width="30">修改</td>
+    <td class="hed" width="30">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].name|cat:" "}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>">
+            <img src="images/edit.png" width="16" height="16" border="0" />
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del" 
+             onclick="return confirm('真的要刪除嗎？')">
+            <img src="images/del.png" border="0" width="16" height="16" />
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+<{/if}>

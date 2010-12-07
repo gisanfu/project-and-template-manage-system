@@ -1,0 +1,71 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['row'] = array();
+  $this->_tpl_vars['row'] = $this->_tpl_vars['file'];
+<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  函式檔案資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">程式語言</td>
+      <td>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['languages'];<{/php}>
+        <select name="language_id">
+          <option value="<{$row.language_id}>"><{$row.language_name}></option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].id}>">
+              <{$rows[num01].name}>
+            </option>
+          <{/section}>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">分類名稱</td>
+      <td>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['categories'];<{/php}>
+        <select name="librarycategory_id">
+          <option value="<{$row.category_id}>"><{$row.category_name}></option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].id}>">
+              <{$rows[num01].name}>
+            </option>
+          <{/section}>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">次資料夾名稱</td>
+      <td>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['subdirs'];<{/php}>
+        <select name="librarydir_id">
+          <option value="<{$row.subdir_id}>"><{$row.subdir_name}></option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].id}>">
+              <{$rows[num01].name}>
+            </option>
+          <{/section}>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">主檔名</td>
+      <td><input name="name" type="text" value="<{$row.name}>"/></td>
+    </tr>
+    <tr>
+      <td class="hed">描述</td>
+      <td><input name="description" type="text" value="<{$row.description}>"/></td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

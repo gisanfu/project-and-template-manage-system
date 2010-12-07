@@ -1,0 +1,36 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['row'] = $this->_tpl_vars['language'];<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  欄位型態資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">簡稱</td>
+      <td>
+        例如:smarty<br>
+        <input name="alias" type="text" value="<{$row.alias}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">實際名稱</td>
+      <td>
+        例如:Smarty<br>
+        <input name="name" type="text" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">副檔名</td>
+      <td>
+        例如:tpl.htm<br>
+        <input name="fileexten" type="text" value="<{$row.fileexten}>"/>
+      </td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

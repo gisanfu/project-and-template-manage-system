@@ -1,0 +1,89 @@
+<{* 方便使用者去上層或下層 *}>
+所在位置:
+/<a href="dase-project.php?hidop=funclist&id=<{$project_id}>"><{$cg_name}></a>/資料庫連線列表<br><br>
+
+<a href="<{$targetpost}>?hidop=adding&project_id=<{$project_id}>" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增資料庫連線
+</a>
+
+<br>
+這裡可以建立多筆需要維護的資料庫主機
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['project_dbs'];<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">別名</td>
+    <td class="hed">主機位置</td>
+    <td class="hed">主機埠號</td>
+    <td class="hed">帳號</td>
+    <td class="hed">資料庫名稱</td>
+    <td class="hed">程序狀態/更新</td>
+    <td class="hed">匯出連線設定</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].alias|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].host|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].port|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].user|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].dbname|default:"&nbsp;"}>
+      </td>
+      <{* 程序更新 *}>
+      <td>
+        <{* 指定超連結的文字 *}>
+        <{if $rows[num01].connectstatus == '1'}>
+          連線失敗!!!
+        <{else}>
+          <a href="<{$targetpost}>?hidop=procupdate&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            最新版(<{$rows[num01].newfield}>) 需更新(<{$rows[num01].oldfield}>) 停用(<{$rows[num01].disable}>) 失敗(<{$rows[num01].failfield}>)
+          </a>
+        <{/if}>
+      </td>
+      <{* 匯出資料庫連線參照檔 *}>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=exportsqlconnect&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            匯出
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>&project_id=<{$rows[num01].project_id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

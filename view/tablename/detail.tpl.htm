@@ -1,0 +1,34 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['row'] = $this->_tpl_vars['tablename'];<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  程序資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">資料表別名</td>
+      <td>
+        <font color="red">
+          *這個欄位<br>
+          是在程序的內容中可以使用<br>
+          使用方式為=>%別名%</font><br>
+        <input name="alias" type="text" value="<{$row.alias}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">實際名稱</td>
+      <td>
+        <font color="red">*資料表的實際名稱</font><br>
+        <input name="name" type="text" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="project_id" type="hidden" value="<{$project_id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

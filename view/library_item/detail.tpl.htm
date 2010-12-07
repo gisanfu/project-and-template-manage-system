@@ -1,0 +1,62 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['row'] = array();
+  $this->_tpl_vars['row'] = $this->_tpl_vars['item'];
+<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  函式資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">函式名稱</td>
+      <td>
+        *這名稱只是在下拉式選單中的名稱，也是帶入textarea元件內的名稱<br>
+        *通常這裡的名稱是函式名稱<br>
+        <input name="name" type="text" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">程式語言</td>
+      <td>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['languages'];<{/php}>
+        <select name="language_id">
+          <option value="<{$row.language_id}>"><{$row.language_name}></option>
+          <{section name=num01 loop=$rows}>
+            <option value="<{$rows[num01].id}>">
+              <{$rows[num01].name}>
+            </option>
+          <{/section}>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">函式描述</td>
+      <td>
+        *這裡通常都是中文的描述<br>
+        <input name="description" type="text" value="<{$row.description}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">函式語法</td>
+      <td>
+        *這是這個函式的語法說明，需要在加上該程式語言的註解符號<br>
+        *如果是php，就是// or /* */<br>
+        <textarea id="synopsis" name="synopsis" cols="40" rows="5"><{$row.synopsis}></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">函式內容</td>
+      <td>
+        <textarea id="bodytext" name="bodytext" cols="40" rows="30" onkeydown="TraceCursorPosition(this)" onkeypress="TraceCursorPosition(this)" onfocus="TraceCursorPosition(this)" onselect="TraceCursorPosition(this)" onmouseover="TraceCursorPosition(this)" onmousedown="TraceCursorPosition(this)"><{$row.bodytext}></textarea>
+      </td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

@@ -1,0 +1,98 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['row'] = $this->_tpl_vars['argument'];<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  欄位資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">欄位名稱</td>
+      <td>
+        <font color="red">*建議以"f_"開頭當做欄位的名稱</font><br>
+        <input name="name" type="text" value="<{$row.name}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">描述</td>
+      <td>
+        <font color="red">*必填,在修改程序內文的時候，會出現在下拉式選單</font><br>
+        <input name="description" type="text" value="<{$row.description}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">型態</td>
+      <td>
+        <{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+        <{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['types'];<{/php}>
+        <select name="type_id">
+        <option value="<{$row.type_id}>"><{$row.type_name}></option>
+          <{section name=num01 loop=$rows}>
+          <option value="<{$rows[num01].id}>">
+            <{$rows[num01].name}>
+          </option>
+          <{/section}>
+        </select> 
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">長度</td>
+      <td>
+        <font color="red">*這個欄位的功能尚未啟用</font><br>
+        <input name="length" type="text" value="<{$row.length}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">required</td>
+      <td>
+        定義這個欄位為必要<br>
+        在呼叫這個程序時<br>
+        這個欄位也必需要帶值<br>
+        <input type="radio" name="required" VALUE="1" 
+          <{if $row.required > 0 }>
+            checked
+          <{/if}>
+        />啟用<br>
+        <input type="radio" name="required" VALUE="0" 
+          <{* 只要欄位有特價區域，修改的時候就會出現 *}>
+          <{if $row.required <= 0 or $row.required == '' }>
+            checked
+          <{/if}>        
+        />停用<br>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">是否啟用</td>
+      <td>
+        停用就等同於沒有這個欄位<br>
+        <input type="radio" name="enable" VALUE="1" 
+          <{* 預設的radio是選擇啟用 *}>
+          <{if $row.enable > 0 }>
+            checked
+          <{/if}>
+        />啟用<br>
+        <input type="radio" name="enable" VALUE="0" 
+          <{* 只要欄位有特價區域，修改的時候就會出現 *}>
+          <{if $row.enable <= 0 or $row.enable == '' }>
+            checked
+          <{/if}>        
+        />停用<br>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">順序</td>
+      <td>
+        請指定2~n的欄位順序編號<br>
+        順序1，通常是版本號所占用<br>
+        <input name="sequence" type="text" value="<{$row.sequence}>"/>
+      </td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="project_id" type="hidden" value="<{$project_id}>" />
+  <input name="procedure_id" type="hidden" value="<{$procedure_id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

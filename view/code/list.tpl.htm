@@ -1,0 +1,54 @@
+<a href="<{$targetpost}>?hidop=adding" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增程式碼片斷
+</a>
+
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>$this->_tpl_vars['rows'] = $this->_tpl_vars['codes'];<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">程式碼別名</td>
+    <td class="hed">語言簡稱</td>
+    <td class="hed">描述</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <td>
+        <{$rows[num01].alias|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].language_alias|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].description|default:"&nbsp;"}>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del"  onclick="return confirm('真的要刪除嗎？')">
+            刪除
+          </a>
+        </div>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

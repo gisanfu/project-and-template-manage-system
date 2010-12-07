@@ -1,0 +1,53 @@
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['row'] = array();
+  $this->_tpl_vars['row'] = $this->_tpl_vars['project_db'];
+<{/php}>
+
+<form id="form1" name="form1" method="post" action="<{$targetpost}>">
+  程序資料<br />
+
+  <table class="stats" cellspacing="0">
+    <tr>
+      <td class="hed">別名</td>
+      <td>
+        *只是讓管理者好分辦這筆的作用<br>
+        <input name="alias" type="text" value="<{$row.alias}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">目標主機</td>
+      <td>
+        *本地端請填localhost<br>
+        *OpenSSH Tunneling請填127.0.0.1<br>
+        <input name="host" type="text" value="<{$row.host}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">主機埠號</td>
+      <td>
+        *不填的話，預設是3306<br>
+        <input name="port" type="text" value="<{$row.port}>"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="hed">帳號</td>
+      <td><input name="user" type="text" value="<{$row.user}>"/></td>
+    </tr>
+    <tr>
+      <td class="hed">密碼</td>
+      <td><input name="pass" type="password" value="<{$row.pass}>"/></td>
+    </tr>
+    <tr>
+      <td class="hed">資料庫名稱</td>
+      <td><input name="dbname" type="text" value="<{$row.dbname}>"/></td>
+    </tr>
+  </table>
+  <br>
+   
+  <input name="id" type="hidden" value="<{$id}>" />
+  <input name="project_id" type="hidden" value="<{$project_id}>" />
+  <input name="hidop" type="hidden" value="<{$hidop}>" />
+  <input value="送出" type="submit" />
+
+</form>

@@ -1,0 +1,82 @@
+<a href="<{$targetpost}>?hidop=adding" style="text-decoration:none;color:#0052D9;">
+  [add]
+  新增專案
+</a>
+
+<br>
+每個專案都能擁有多個mysql程序<br>
+還有資料表的別名對應(這樣改資料表名稱的時候，就不用去修改程序)<br>
+還有多個資料庫連線資料(像是本機測試的資料庫、與正式站台的資料庫，這樣就有2個了)
+<br>
+
+<{*將php傳來的變數，轉成固定名稱的變數，讓section迴圈使用*}>
+<{php}>
+  $this->_tpl_vars['rows'] = array();
+  $this->_tpl_vars['rows'] = $this->_tpl_vars['projects'];
+<{/php}>
+
+<{if count($rows) <= 0 }>
+  無資料
+<{else}>
+  <table class="stats" cellspacing="0">
+  <tr>
+    <td class="hed">專案名稱</td>
+    <td class="hed">檔案路徑</td>
+    <td class="hed" width="40">網址</td>
+    <td class="hed" width="60">風格</td>
+    <td class="hed">描述</td>
+    <td class="hed" width="70">功能總覽</td>
+    <td class="hed" width="40">修改</td>
+    <td class="hed" width="40">刪除</td>  
+  </tr>
+  <{section name=num01 loop=$rows}>
+    <tr>
+      <{* 專案名稱 *}>
+      <td>
+        <{$rows[num01].name|default:"&nbsp;"}>
+      </td>
+      <{* 檔案路徑 *}>
+      <td>
+        <{$rows[num01].exportdir|default:"&nbsp;"}>
+      </td>
+      <{* 網址 *}>
+      <td>
+        <{if $rows[num01].httpaddress == ''}>
+          none
+        <{else}>
+          <a href="<{$rows[num01].httpaddress}>" target=_blank>連結</a>
+        <{/if}>
+      </td>
+      <td>
+        <{$rows[num01].theme_name|default:"&nbsp;"}>
+      </td>
+      <td>
+        <{$rows[num01].description|default:"&nbsp;"}>
+      </td>
+      <{* 功能選項 *}>
+      <td>
+        <a href="<{$targetpost}>?hidop=funclist&id=<{$rows[num01].id}>">功能總覽</a>
+      </td>
+      <{* 修改 *}>
+      <td>
+        <div align="center">
+          <a href="<{$targetpost}>?hidop=editing&id=<{$rows[num01].id}>">
+            修改
+          </a>
+        </div>
+      </td>
+      <{* 刪除 *}>
+      <td>
+        <a href="<{$targetpost}>?id=<{$rows[num01].id}>&hidop=del" 
+           onclick="return confirm('真的要刪除嗎？')">
+          刪除
+        </a>
+      </td>
+    </tr>
+  <{/section}>
+  </table>
+  
+  <{* 分頁 *}>
+  <{$viewlist}>
+  
+<{/if}>

@@ -1,0 +1,8 @@
+DROP PROCEDURE IF EXISTS sp_testgg;
+DELIMITER //
+CREATE PROCEDURE sp_testgg(
+)
+
+//
+DELIMITER ;
+
